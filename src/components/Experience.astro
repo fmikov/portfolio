@@ -1,0 +1,100 @@
+---
+---
+
+<section id="experience" class="fade-in">
+  <h2 class="section-title">Experience</h2>
+  <div class="timeline">
+    <div class="timeline__item">
+      <div class="timeline__marker"></div>
+      <div class="timeline__content">
+        <div class="timeline__header">
+          <h3>3D Software Engineering Intern</h3>
+          <span class="timeline__date">2025 – 2026</span>
+        </div>
+        <p class="timeline__company">Swiss Motion Technologies SA</p>
+        <ul class="timeline__details">
+          <li>Developed a prototype of the core 3D software using Godot with real-time vertex shader previews</li>
+          <li>Collaborated closely with a 3-person engineering team in a fast-paced Agile startup environment</li>
+          <li>Developed a constraint-based scheduling system to automate worker shift planning and resource allocation for production</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline__item {
+    position: relative;
+  }
+
+  .timeline__marker {
+    position: absolute;
+    left: -2rem;
+    top: 8px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .timeline__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .timeline__header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .timeline__date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .timeline__company {
+    color: var(--accent);
+    font-size: 0.95rem;
+    margin: 0.25rem 0 0.75rem;
+  }
+
+  .timeline__details {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .timeline__details li {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .timeline__details li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+</style>

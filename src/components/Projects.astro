@@ -1,0 +1,136 @@
+---
+const projects = [
+  {
+    title: 'Physically Based Renderer',
+    year: '2024',
+    description: 'Realistic ray tracer with global illumination using Monte-Carlo methods in C++. Features octree acceleration for fast triangle intersections and homogeneous volumetric rendering.',
+    tags: ['C++', 'Ray Tracing', 'Monte Carlo'],
+  },
+  {
+    title: 'Hex Tactics',
+    year: '2025',
+    description: 'Tactical game developed in Godot in a team of 2. Features custom shaders for captivating visuals and local multiplayer support.',
+    tags: ['Godot', 'Game Dev', 'Shaders'],
+  },
+  {
+    title: 'Extending Image-to-Sketch to 3D',
+    year: '2025',
+    description: 'Adapting an image-to-sketch ML model to 3D, generating models composed of Bézier curves in 3D space using NeRFs, CLIP, and differentiable rasterization.',
+    tags: ['Python', 'PyTorch', 'NeRF', 'CLIP'],
+  },
+  {
+    title: 'Line-by-Line Atmospheric Solver',
+    year: '2024–2025',
+    description: 'Computes absorption coefficients for atmospheric gases using the Dr.Jit library for high parallelization, with spectral line data from the HITRAN database.',
+    tags: ['Python', 'Dr.Jit', 'Scientific Computing'],
+  },
+  {
+    title: 'Geometric Optimization',
+    year: '2024',
+    description: 'Transforming meshes to reach equilibrium under gravity. Computing minimal surfaces using mean curvature flow.',
+    tags: ['C++', 'Geometry Processing'],
+  },
+  {
+    title: 'Unity Light Field Framework',
+    year: '2023',
+    description: 'Improved an existing Unity framework to support point clouds for use in high-immersion light field monitors, adding user interaction capabilities.',
+    tags: ['Unity', 'C#', 'Point Clouds'],
+  },
+  {
+    title: 'MEDIAR',
+    year: '2023–2024',
+    description: 'Exploring and adapting a challenge-winning cell segmentation deep learning model, finetuned for yeast cell segmentation.',
+    tags: ['Python', 'Deep Learning', 'Segmentation'],
+  },
+  {
+    title: 'Movie Trends Analysis',
+    year: '2024',
+    description: 'Data-driven exploration of CMU and Box Office Mojo movie datasets in a team of 4, analyzing revenue and language trends with clear visualizations.',
+    tags: ['Python', 'Data Science'],
+  },
+  {
+    title: 'DishDelish',
+    year: '2023',
+    description: 'Recipe sharing Android app built in a team of 5 using Agile Scrum. Features step-by-step guided cooking, shopping cart, and personal ingredients list.',
+    tags: ['Java', 'Android', 'Agile'],
+  },
+];
+---
+
+<section id="projects" class="fade-in">
+  <h2 class="section-title">Projects</h2>
+  <div class="projects__grid">
+    {projects.map((project) => (
+      <article class="card project">
+        <div class="project__header">
+          <h3 class="project__title">{project.title}</h3>
+          <span class="project__year">{project.year}</span>
+        </div>
+        <p class="project__desc">{project.description}</p>
+        <div class="project__tags">
+          {project.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+
+  .project {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .project__year {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+
+  .project__desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+
+  .project__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .project__tags .tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.55rem;
+  }
+
+  @media (max-width: 640px) {
+    .projects__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

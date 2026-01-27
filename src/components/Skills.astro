@@ -1,0 +1,55 @@
+---
+const skillGroups = [
+  {
+    category: 'Languages',
+    skills: ['C++', 'C#', 'C', 'Python', 'Java', 'VHDL', 'JavaScript', 'SQL', 'GLSL', 'HTML', 'CSS'],
+  },
+  {
+    category: 'Tools & Libraries',
+    skills: ['Git', 'OpenGL', 'PyTorch', 'OR-Tools', 'FPGA', 'Dr.Jit'],
+  },
+  {
+    category: 'Engines & Software',
+    skills: ['Unreal Engine', 'Unity', 'Godot', 'Blender'],
+  },
+];
+---
+
+<section id="skills" class="fade-in">
+  <h2 class="section-title">Skills</h2>
+  <div class="skills__groups">
+    {skillGroups.map((group) => (
+      <div class="skills__group">
+        <h3 class="skills__category">{group.category}</h3>
+        <div class="skills__tags">
+          {group.skills.map((skill) => (
+            <span class="tag">{skill}</span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .skills__groups {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .skills__category {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .skills__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+</style>

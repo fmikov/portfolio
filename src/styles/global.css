@@ -1,0 +1,131 @@
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+  --bg-card-hover: #1c1c1c;
+  --text-primary: #e8e8e8;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
+  --accent: #6c8aec;
+  --accent-dim: #4a6ad0;
+  --accent-glow: rgba(108, 138, 236, 0.15);
+  --border: #222222;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --max-width: 1000px;
+  --section-gap: 6rem;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--text-primary);
+}
+
+section {
+  padding: var(--section-gap) 1.5rem;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.section-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 1.2em;
+  background: var(--accent);
+  margin-right: 0.75rem;
+  vertical-align: text-bottom;
+  border-radius: 2px;
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tag styles */
+.tag {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.tag:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+/* Card styles */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.card:hover {
+  border-color: var(--accent-dim);
+  background: var(--bg-card-hover);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --section-gap: 4rem;
+  }
+
+  html {
+    font-size: 15px;
+  }
+
+  section {
+    padding: var(--section-gap) 1.25rem;
+  }
+}

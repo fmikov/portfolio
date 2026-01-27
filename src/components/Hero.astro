@@ -1,0 +1,70 @@
+---
+---
+
+<section class="hero">
+  <p class="hero__greeting">Hi, I'm</p>
+  <h1 class="hero__name">Filip Mikovíny</h1>
+  <p class="hero__title">MSc Computer Science @ EPFL</p>
+  <p class="hero__tagline">Graphics, game development & systems programming</p>
+  <nav class="hero__nav">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</section>
+
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .hero__greeting {
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero__name {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero__title {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero__tagline {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero__nav {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hero__nav a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .hero__nav a:hover {
+    color: var(--accent);
+  }
+</style>
