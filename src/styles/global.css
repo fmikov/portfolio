@@ -116,6 +116,14 @@ section {
   background: var(--bg-card-hover);
 }
 
+a.project-link {
+  cursor: pointer;
+}
+
+a.project-link .card {
+  height: 100%;
+}
+
 @media (max-width: 640px) {
   :root {
     --section-gap: 4rem;

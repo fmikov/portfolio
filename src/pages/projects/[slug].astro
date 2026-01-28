@@ -1,0 +1,63 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { projects } from '../../data/projects';
+import type { Project } from '../../data/projects';
+
+export function getStaticPaths() {
+  return projects
+    .filter((p) => p.slug)
+    .map((p) => ({
+      params: { slug: p.slug },
+      props: { project: p },
+    }));
+}
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+const placeholderContent: Record<string, string> = {
+  'pbr-renderer': `
+    <p>A physically based renderer built from scratch in C++, implementing Monte Carlo path tracing for realistic global illumination.</p>
+    <h2>Features</h2>
+    <p>The renderer supports diffuse and specular BRDFs, area lights, and environment map lighting. An octree acceleration structure enables fast ray–triangle intersection for complex meshes. Homogeneous participating media allow volumetric effects like fog and smoke.</p>
+    <p>More details coming soon.</p>
+  `,
+  'nerf-sketch': `
+    <p>This project extends a 2D image-to-sketch model into 3D, producing stylized sketch representations of objects as Bézier curves in 3D space.</p>
+    <h2>Approach</h2>
+    <p>The pipeline combines Neural Radiance Fields (NeRF) for 3D scene representation, CLIP for semantic guidance, and differentiable rasterization for end-to-end optimization of 3D curves against the sketch style objective.</p>
+    <p>More details coming soon.</p>
+  `,
+  'hex-tactics': `
+    <p>A turn-based tactical game built in the Godot engine, developed collaboratively in a team of 2.</p>
+    <h2>Highlights</h2>
+    <p>The game features hexagonal grid-based gameplay with custom-written shaders for visual effects. It supports local multiplayer, allowing two players to compete on the same device.</p>
+    <p>More details coming soon.</p>
+  `,
+  'unity-light-field': `
+    <p>Extended an existing Unity framework to support point cloud rendering for use with high-immersion light field displays.</p>
+    <h2>Contributions</h2>
+    <p>Added point cloud import and rendering capabilities, and implemented user interaction features that leverage the unique depth qualities of light field monitors.</p>
+    <p>More details coming soon.</p>
+  `,
+  'movie-trends': `
+    <p>A data science project exploring movie industry trends using the CMU Movie Summary Corpus and Box Office Mojo datasets.</p>
+    <h2>Analysis</h2>
+    <p>The team of 4 analyzed revenue trends, language distributions, and genre evolution over time, producing interactive visualizations and statistical analyses to communicate findings.</p>
+    <p>More details coming soon.</p>
+  `,
+  'dish-delish': `
+    <p>A recipe-sharing Android application built by a team of 5 following Agile Scrum methodology.</p>
+    <h2>Features</h2>
+    <p>The app provides step-by-step guided cooking, a shopping cart that aggregates ingredients across recipes, and a personal ingredients list for pantry tracking. Built with Java and the Android SDK.</p>
+    <p>More details coming soon.</p>
+  `,
+};
+---
+
+<ProjectLayout project={project}>
+  <Fragment set:html={placeholderContent[project.slug!] || '<p>Details coming soon.</p>'} />
+</ProjectLayout>

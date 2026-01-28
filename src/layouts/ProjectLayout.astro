@@ -1,0 +1,109 @@
+---
+import Layout from './Layout.astro';
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<Layout title={`${project.title} — Filip Mikovíny`}>
+  <main class="project-detail fade-in">
+    <a href="/portfolio/#projects" class="back-link">&larr; Back to projects</a>
+    <header class="project-detail__header">
+      <h1 class="project-detail__title">{project.title}</h1>
+      <span class="project-detail__year">{project.year}</span>
+    </header>
+    <div class="project-detail__tags">
+      {project.tags.map((tag) => (
+        <span class="tag">{tag}</span>
+      ))}
+    </div>
+    <div class="project-detail__content">
+      <slot />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .project-detail {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3rem 1.5rem 6rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  .project-detail__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .project-detail__title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .project-detail__year {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+
+  .project-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .project-detail__content {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .project-detail__content :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .project-detail__content :global(h2) {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .project-detail {
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .project-detail__title {
+      font-size: 1.5rem;
+    }
+
+    .project-detail__header {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>
