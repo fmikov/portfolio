@@ -1,13 +1,25 @@
 ---
 import { projects } from '../data/projects';
+
+function getLink(project: (typeof projects)[number]) {
+  if (project.slug) return `/portfolio/projects/${project.slug}`;
+  if (project.externalUrl) return project.externalUrl;
+  return null;
+}
 ---
 
 <section id="projects" class="fade-in">
   <h2 class="section-title">Projects</h2>
   <div class="projects__grid">
-    {projects.map((project) =>
-      project.slug ? (
-        <a href={`/portfolio/projects/${project.slug}`} class="project-link">
+    {projects.map((project) => {
+      const link = getLink(project);
+      const isExternal = !!project.externalUrl;
+      return link ? (
+        <a
+          href={link}
+          class="project-link"
+          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
           <article class="card project">
             <div class="project__header">
               <h3 class="project__title">{project.title}</h3>
@@ -20,7 +32,7 @@ import { projects } from '../data/projects';
                   <span class="tag">{tag}</span>
                 ))}
               </div>
-              <span class="project__more">Read more &rarr;</span>
+              <span class="project__more">{isExternal ? 'Visit site \u2197' : 'Read more \u2192'}</span>
             </div>
           </article>
         </a>
@@ -37,8 +49,8 @@ import { projects } from '../data/projects';
             ))}
           </div>
         </article>
-      )
-    )}
+      );
+    })}
   </div>
 </section>
 

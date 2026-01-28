@@ -4,6 +4,7 @@ export interface Project {
   description: string;
   tags: string[];
   slug?: string;
+  externalUrl?: string;
 }
 
 export const projects: Project[] = [
@@ -19,7 +20,7 @@ export const projects: Project[] = [
     year: '2025',
     description: 'Adapting an image-to-sketch ML model to 3D, generating models composed of Bézier curves in 3D space using NeRFs, CLIP, and differentiable rasterization.',
     tags: ['Python', 'PyTorch', 'NeRF', 'CLIP'],
-    slug: 'nerf-sketch',
+    externalUrl: 'https://tarhanefe.github.io/CLIPasso3DWebsite/',
   },
   {
     title: 'Hex Tactics',
@@ -58,7 +59,7 @@ export const projects: Project[] = [
     year: '2024',
     description: 'Data-driven exploration of CMU and Box Office Mojo movie datasets in a team of 4, analyzing revenue and language trends with clear visualizations.',
     tags: ['Python', 'Data Science'],
-    slug: 'movie-trends',
+    externalUrl: 'https://mhli14.github.io/ada-pandalysts/datastory/',
   },
   {
     title: 'DishDelish',

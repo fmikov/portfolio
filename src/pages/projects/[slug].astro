@@ -18,18 +18,115 @@ interface Props {
 
 const { project } = Astro.props;
 
+const base = '/portfolio/projects/pbr-renderer';
+
 const placeholderContent: Record<string, string> = {
   'pbr-renderer': `
-    <p>A physically based renderer built from scratch in C++, implementing Monte Carlo path tracing for realistic global illumination.</p>
-    <h2>Features</h2>
-    <p>The renderer supports diffuse and specular BRDFs, area lights, and environment map lighting. An octree acceleration structure enables fast ray–triangle intersection for complex meshes. Homogeneous participating media allow volumetric effects like fog and smoke.</p>
-    <p>More details coming soon.</p>
-  `,
-  'nerf-sketch': `
-    <p>This project extends a 2D image-to-sketch model into 3D, producing stylized sketch representations of objects as Bézier curves in 3D space.</p>
-    <h2>Approach</h2>
-    <p>The pipeline combines Neural Radiance Fields (NeRF) for 3D scene representation, CLIP for semantic guidance, and differentiable rasterization for end-to-end optimization of 3D curves against the sketch style objective.</p>
-    <p>More details coming soon.</p>
+    <img class="hero-img" src="${base}/imgs/final_result.png" alt="Final render" />
+
+    <h2>Motivation</h2>
+    <p>The goal was to create a nature scene with god rays, a reflective puddle, and a glass sphere. Despite being a simple shape, the glass sphere produces beautiful caustics and refractions that showcase the renderer's capabilities. The scene uses an environment map for natural lighting.</p>
+
+    <h2>Feature List</h2>
+    <table>
+      <tr><th>Feature</th><th>Points</th></tr>
+      <tr><td>Texture maps</td><td>10</td></tr>
+      <tr><td>Depth of field</td><td>10</td></tr>
+      <tr><td>Basic denoising</td><td>10</td></tr>
+      <tr><td>Image based lighting</td><td>20</td></tr>
+      <tr><td>Homogeneous participating media</td><td>30</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>80</strong></td></tr>
+    </table>
+
+    <h2>Texture Maps</h2>
+    <p>Textures are imported using the <a href="https://github.com/nothings/stb/tree/master">stb</a> header-only library with gamma correction (factor 2.2). An <code>ImageTexture</code> class evaluates the albedo given UV coordinates, using bilinear filtering for smooth transitions between texels. The texture is integrated at the BSDF level.</p>
+    <div class="img-compare">
+      <figure><img src="${base}/imgs/texture.png" alt="My render" /><figcaption>Mine</figcaption></figure>
+      <figure><img src="${base}/imgs/texture_mitsuba.jpeg" alt="Mitsuba reference" /><figcaption>Mitsuba</figcaption></figure>
+    </div>
+
+    <h2>Depth of Field</h2>
+    <p>Implemented using the thin lens approximation model from PBRT chapter 6.4. Two parameters control the effect: lens radius (controls how much is in focus) and focal distance (position of the focal plane). Depth of field is only applied when lens radius is greater than zero.</p>
+    <div class="img-compare">
+      <figure><img src="${base}/imgs/dof.png" alt="My render" /><figcaption>Mine</figcaption></figure>
+      <figure><img src="${base}/imgs/dof_mitsuba.jpeg" alt="Mitsuba reference" /><figcaption>Mitsuba</figcaption></figure>
+    </div>
+
+    <h2>Basic Denoising</h2>
+    <p>Implemented the Non-local Means algorithm from <a href="https://hal.science/hal-00271141/document">Buades et al.</a>. For each pixel, the algorithm computes similarity weights based on patch comparisons and produces a weighted average. Extended to RGB by computing gray-level differences per channel.</p>
+    <p>Parameters: patch size, search size, and <em>h</em> (controls sharpness — lower values penalize large patch distances more).</p>
+    <div class="img-compare">
+      <figure><img src="${base}/imgs/denoiser_orig.png" alt="Original" /><figcaption>Original (256 spp)</figcaption></figure>
+      <figure><img src="${base}/imgs/denoiser_7.png" alt="Denoised" /><figcaption>Denoised (h=10)</figcaption></figure>
+    </div>
+    <p>Effect of the sharpness parameter:</p>
+    <div class="img-compare">
+      <figure><img src="${base}/imgs/denoiser_7.png" alt="Denoised h=10" /><figcaption>h = 10</figcaption></figure>
+      <figure><img src="${base}/imgs/denoiser_7_sharp.png" alt="Denoised h=5" /><figcaption>h = 5 (sharper)</figcaption></figure>
+    </div>
+
+    <h2>Image Based Lighting</h2>
+    <p>Environment maps act as emitters not associated with any mesh. Integrators check for environment contribution when rays leave the scene. Sampling is importance-based, focusing on the brightest areas using a piecewise constant 2D distribution built from luminance values, following <a href="https://libraopen.lib.virginia.edu/public_view/m900nt40f">Pharr et al.</a></p>
+    <div class="img-compare">
+      <figure><img src="${base}/imgs/envmap.png" alt="My render" /><figcaption>Mine (uniform sampling)</figcaption></figure>
+      <figure><img src="${base}/imgs/envmap_mitsuba.jpeg" alt="Mitsuba reference" /><figcaption>Mitsuba</figcaption></figure>
+    </div>
+
+    <h2>Homogeneous Participating Media</h2>
+    <p>Implemented following PBRT chapters 11 and 15. Supports mesh-delimited media of arbitrary shape. Key components:</p>
+    <ul>
+      <li><strong>Medium / HomogeneousMedium</strong> — computes transmittance and samples steps through the medium</li>
+      <li><strong>Henyey-Greenstein phase function</strong> — controls scattering directionality via parameter <em>g</em></li>
+      <li><strong>Volumetric path integrator</strong> — combines MIS path tracing with volumetric transport</li>
+    </ul>
+
+    <p>Isotropic phase function (g = 0):</p>
+    <div class="img-compare">
+      <figure><img src="${base}/imgs/volume_0_0.png" alt="My render" /><figcaption>Mine</figcaption></figure>
+      <figure><img src="${base}/imgs/volume_0_0_mitsuba.jpeg" alt="Mitsuba" /><figcaption>Mitsuba</figcaption></figure>
+    </div>
+
+    <p>Forward/backward scattering (g = 0.5 / -0.5):</p>
+    <div class="img-compare">
+      <figure><img src="${base}/imgs/volume_05_-05.png" alt="My render" /><figcaption>Mine</figcaption></figure>
+      <figure><img src="${base}/imgs/volume_05_-05_mitsuba.jpeg" alt="Mitsuba" /><figcaption>Mitsuba</figcaption></figure>
+    </div>
+
+    <p>Strong forward/backward scattering (g = 0.9 / -0.9):</p>
+    <div class="img-compare">
+      <figure><img src="${base}/imgs/volume_09_-09.png" alt="My render" /><figcaption>Mine</figcaption></figure>
+      <figure><img src="${base}/imgs/volume_09_-09_mitsuba.jpeg" alt="Mitsuba" /><figcaption>Mitsuba</figcaption></figure>
+    </div>
+
+    <p>Dense medium filling the whole scene:</p>
+    <div class="img-compare">
+      <figure><img src="${base}/imgs/volume.png" alt="My render" /><figcaption>Mine</figcaption></figure>
+      <figure><img src="${base}/imgs/volume_mitsuba.jpeg" alt="Mitsuba" /><figcaption>Mitsuba</figcaption></figure>
+    </div>
+
+    <h2>Validation</h2>
+    <p>Chi-squared tests and visualizations of the Henyey-Greenstein phase function at various <em>g</em> parameters:</p>
+
+    <div class="img-compare">
+      <figure><img src="${base}/tests/phase_0_vis.png" alt="g=0 visualization" /><figcaption>g = 0 (vis)</figcaption></figure>
+      <figure><img src="${base}/tests/phase_0.png" alt="g=0 chi2" /><figcaption>g = 0 (chi²)</figcaption></figure>
+    </div>
+    <div class="img-compare">
+      <figure><img src="${base}/tests/phase_05_vis.png" alt="g=0.5 visualization" /><figcaption>g = 0.5 (vis)</figcaption></figure>
+      <figure><img src="${base}/tests/phase_05.png" alt="g=0.5 chi2" /><figcaption>g = 0.5 (chi²)</figcaption></figure>
+    </div>
+    <div class="img-compare">
+      <figure><img src="${base}/tests/phase_-05_vis.png" alt="g=-0.5 visualization" /><figcaption>g = -0.5 (vis)</figcaption></figure>
+      <figure><img src="${base}/tests/phase_-05.png" alt="g=-0.5 chi2" /><figcaption>g = -0.5 (chi²)</figcaption></figure>
+    </div>
+    <div class="img-compare">
+      <figure><img src="${base}/tests/phase_09_vis.png" alt="g=0.9 visualization" /><figcaption>g = 0.9 (vis)</figcaption></figure>
+      <figure><img src="${base}/tests/phase_09.png" alt="g=0.9 chi2" /><figcaption>g = 0.9 (chi²)</figcaption></figure>
+    </div>
+    <div class="img-compare">
+      <figure><img src="${base}/tests/phase_-09_vis.png" alt="g=-0.9 visualization" /><figcaption>g = -0.9 (vis)</figcaption></figure>
+      <figure><img src="${base}/tests/phase_-09.png" alt="g=-0.9 chi2" /><figcaption>g = -0.9 (chi²)</figcaption></figure>
+    </div>
   `,
   'hex-tactics': `
     <p>A turn-based tactical game built in the Godot engine, developed collaboratively in a team of 2.</p>
@@ -41,12 +138,6 @@ const placeholderContent: Record<string, string> = {
     <p>Extended an existing Unity framework to support point cloud rendering for use with high-immersion light field displays.</p>
     <h2>Contributions</h2>
     <p>Added point cloud import and rendering capabilities, and implemented user interaction features that leverage the unique depth qualities of light field monitors.</p>
-    <p>More details coming soon.</p>
-  `,
-  'movie-trends': `
-    <p>A data science project exploring movie industry trends using the CMU Movie Summary Corpus and Box Office Mojo datasets.</p>
-    <h2>Analysis</h2>
-    <p>The team of 4 analyzed revenue trends, language distributions, and genre evolution over time, producing interactive visualizations and statistical analyses to communicate findings.</p>
     <p>More details coming soon.</p>
   `,
   'dish-delish': `
@@ -61,3 +152,92 @@ const placeholderContent: Record<string, string> = {
 <ProjectLayout project={project}>
   <Fragment set:html={placeholderContent[project.slug!] || '<p>Details coming soon.</p>'} />
 </ProjectLayout>
+
+<style is:global>
+  .hero-img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+  }
+
+  .project-detail__content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .project-detail__content th,
+  .project-detail__content td {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+
+  .project-detail__content th {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .project-detail__content td {
+    color: var(--text-secondary);
+  }
+
+  .project-detail__content ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-detail__content li {
+    margin-bottom: 0.5rem;
+  }
+
+  .project-detail__content code {
+    background: var(--bg-card);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  .project-detail__content a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-decoration-color: var(--accent-dim);
+    text-underline-offset: 2px;
+  }
+
+  .project-detail__content a:hover {
+    color: var(--text-primary);
+  }
+
+  .img-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .img-compare figure {
+    margin: 0;
+  }
+
+  .img-compare img {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .img-compare figcaption {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+  }
+
+  @media (max-width: 640px) {
+    .img-compare {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
