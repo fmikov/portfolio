@@ -66,6 +66,6 @@ export const projects: Project[] = [
     year: '2023',
     description: 'Recipe sharing Android app built in a team of 5 using Agile Scrum. Features step-by-step guided cooking, shopping cart, and personal ingredients list.',
     tags: ['Java', 'Android', 'Agile'],
-    slug: 'dish-delish',
+    externalUrl: 'https://github.com/DishDelish',
   },
 ];
