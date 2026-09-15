@@ -8,135 +8,56 @@ function getLink(project: (typeof projects)[number]) {
 }
 ---
 
-<section id="projects" class="fade-in">
+<section id="projects">
   <h2 class="section-title">Projects</h2>
-  <div class="projects__grid">
+  <ul class="list">
     {projects.map((project) => {
       const link = getLink(project);
-      const isExternal = !!project.externalUrl;
-      return link ? (
-        <a
-          href={link}
-          class="project-link"
-          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        >
-          <article class="card project">
-            <div class="project__header">
-              <h3 class="project__title">{project.title}</h3>
-              <span class="project__year">{project.year}</span>
-            </div>
-            <p class="project__desc">{project.description}</p>
-            <div class="project__footer">
-              <div class="project__tags">
-                {project.tags.map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-              <span class="project__more">{isExternal ? 'Visit site \u2197' : 'Read more \u2192'}</span>
-            </div>
-          </article>
-        </a>
-      ) : (
-        <article class="card project">
-          <div class="project__header">
-            <h3 class="project__title">{project.title}</h3>
-            <span class="project__year">{project.year}</span>
+      const isExternal = !project.slug && !!project.externalUrl;
+      return (
+        <li>
+          <div class="row__head">
+            <h3 class="row__title">
+              {link ? (
+                <a
+                  href={link}
+                  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  {project.title}
+                  <span class="arrow" aria-hidden="true">{isExternal ? '↗' : '→'}</span>
+                </a>
+              ) : (
+                project.title
+              )}
+            </h3>
+            <span class="row__date">{project.year}</span>
           </div>
-          <p class="project__desc">{project.description}</p>
-          <div class="project__tags">
-            {project.tags.map((tag) => (
-              <span class="tag">{tag}</span>
-            ))}
-          </div>
-        </article>
+          <p class="row__body">{project.description}</p>
+          <p class="meta">{project.tags.join(' · ')}</p>
+        </li>
       );
     })}
-  </div>
+  </ul>
 </section>
 
 <style>
-  .projects__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
+  .row__title a {
+    text-decoration-color: var(--text-muted);
   }
 
-  .project {
-    display: flex;
-    flex-direction: column;
+  .row__title a:hover {
+    text-decoration-color: currentColor;
   }
 
-  .project__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .project__title {
-    font-size: 1.05rem;
-    font-weight: 600;
-  }
-
-  .project__year {
-    font-size: 0.8rem;
+  .arrow {
+    display: inline-block;
+    margin-left: 0.3rem;
     color: var(--text-muted);
-    font-family: var(--font-mono);
-    white-space: nowrap;
+    transition: transform 0.15s, color 0.15s;
   }
 
-  .project__desc {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    flex: 1;
-  }
-
-  .project__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .project__tags .tag {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.55rem;
-  }
-
-  .project__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 0.5rem;
-  }
-
-  .project__more {
-    font-size: 0.8rem;
-    color: var(--accent);
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-
-  .project-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    border-radius: 10px;
-  }
-
-  .project-link:hover {
-    color: inherit;
-  }
-
-  .project-link:hover .project__more {
-    color: var(--text-primary);
-  }
-
-  @media (max-width: 640px) {
-    .projects__grid {
-      grid-template-columns: 1fr;
-    }
+  .row__title a:hover .arrow {
+    color: var(--text);
+    transform: translateX(2px);
   }
 </style>

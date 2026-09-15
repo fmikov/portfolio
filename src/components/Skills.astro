@@ -19,41 +19,44 @@ const skillGroups = [
 ];
 ---
 
-<section id="skills" class="fade-in">
+<section id="skills">
   <h2 class="section-title">Skills</h2>
-  <div class="skills__groups">
+  <dl class="skills">
     {skillGroups.map((group) => (
-      <div class="skills__group">
-        <h3 class="skills__category">{group.category}</h3>
-        <div class="skills__tags">
-          {group.skills.map((skill) => (
-            <span class="tag">{skill}</span>
-          ))}
-        </div>
+      <div class="skills__row">
+        <dt>{group.category}</dt>
+        <dd>{group.skills.join(', ')}</dd>
       </div>
     ))}
-  </div>
+  </dl>
 </section>
 
 <style>
-  .skills__groups {
+  .skills {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0.6rem;
+    font-size: 0.9rem;
   }
 
-  .skills__category {
-    font-size: 0.85rem;
-    font-weight: 500;
+  .skills__row {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 1rem;
+  }
+
+  .skills dt {
     color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.75rem;
   }
 
-  .skills__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .skills dd {
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 640px) {
+    .skills__row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
   }
 </style>

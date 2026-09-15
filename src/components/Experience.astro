@@ -1,111 +1,62 @@
 ---
+const jobs = [
+  {
+    role: 'Graphics Engineering Intern',
+    company: 'Immensive',
+    date: 'Jun – Aug 2026',
+    details: [
+      'Designing and implementing a minimal Vulkan rendering prototype in C# using Silk.NET',
+      'Progressively migrating the existing OpenGL rendering backend to Vulkan for finer GPU control, better performance, and stronger multi-threading support',
+    ],
+  },
+  {
+    role: '3D Software Engineering Intern',
+    company: 'Swiss Motion Technologies SA',
+    date: '2025 – 2026',
+    details: [
+      'Developed a prototype of the core 3D software using Godot with real-time vertex shader previews',
+      'Collaborated closely with a 3-person engineering team in a fast-paced Agile startup environment',
+      'Developed a constraint-based scheduling system to automate worker shift planning and resource allocation for production',
+    ],
+  },
+];
 ---
 
-<section id="experience" class="fade-in">
+<section id="experience">
   <h2 class="section-title">Experience</h2>
-  <div class="timeline">
-    <div class="timeline__item">
-      <div class="timeline__marker"></div>
-      <div class="timeline__content">
-        <div class="timeline__header">
-          <h3>Graphics Engineering Intern</h3>
-          <span class="timeline__date">Jun – Aug 2026</span>
+  <ul class="list">
+    {jobs.map((job) => (
+      <li>
+        <div class="row__head">
+          <h3 class="row__title">{job.role}</h3>
+          <span class="row__date">{job.date}</span>
         </div>
-        <p class="timeline__company">Immensive</p>
-        <ul class="timeline__details">
-          <li>Designing and implementing a minimal Vulkan rendering prototype in C# using Silk.NET</li>
-          <li>Progressively migrating the existing OpenGL rendering backend to Vulkan for finer GPU control, better performance, and stronger multi-threading support</li>
+        <p class="row__sub">{job.company}</p>
+        <ul class="details">
+          {job.details.map((d) => <li>{d}</li>)}
         </ul>
-      </div>
-    </div>
-    <div class="timeline__item">
-      <div class="timeline__marker"></div>
-      <div class="timeline__content">
-        <div class="timeline__header">
-          <h3>3D Software Engineering Intern</h3>
-          <span class="timeline__date">2025 – 2026</span>
-        </div>
-        <p class="timeline__company">Swiss Motion Technologies SA</p>
-        <ul class="timeline__details">
-          <li>Developed a prototype of the core 3D software using Godot with real-time vertex shader previews</li>
-          <li>Collaborated closely with a 3-person engineering team in a fast-paced Agile startup environment</li>
-          <li>Developed a constraint-based scheduling system to automate worker shift planning and resource allocation for production</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+      </li>
+    ))}
+  </ul>
 </section>
 
 <style>
-  .timeline {
-    position: relative;
-    padding-left: 2rem;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 8px;
-    bottom: 0;
-    width: 1px;
-    background: var(--border);
-  }
-
-  .timeline__item {
-    position: relative;
-  }
-
-  .timeline__marker {
-    position: absolute;
-    left: -2rem;
-    top: 8px;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-
-  .timeline__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .timeline__header h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
-  .timeline__date {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-  }
-
-  .timeline__company {
-    color: var(--accent);
-    font-size: 0.95rem;
-    margin: 0.25rem 0 0.75rem;
-  }
-
-  .timeline__details {
+  .details {
     list-style: none;
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.3rem;
   }
 
-  .timeline__details li {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    padding-left: 1rem;
+  .details li {
     position: relative;
+    padding-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
   }
 
-  .timeline__details li::before {
+  .details li::before {
     content: '–';
     position: absolute;
     left: 0;

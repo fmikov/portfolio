@@ -10,17 +10,16 @@ const { project } = Astro.props;
 ---
 
 <Layout title={`${project.title} — Filip Mikovíny`}>
-  <main class="project-detail fade-in">
-    <a href="/portfolio/#projects" class="back-link">&larr; Back to projects</a>
+  <main class="project-detail">
+    <a href="/portfolio/#projects" class="back-link">&larr; Filip Mikovíny</a>
     <header class="project-detail__header">
       <h1 class="project-detail__title">{project.title}</h1>
-      <span class="project-detail__year">{project.year}</span>
+      <p class="project-detail__meta">
+        <span>{project.year}</span>
+        <span aria-hidden="true">·</span>
+        <span>{project.tags.join(', ')}</span>
+      </p>
     </header>
-    <div class="project-detail__tags">
-      {project.tags.map((tag) => (
-        <span class="tag">{tag}</span>
-      ))}
-    </div>
     <div class="project-detail__content">
       <slot />
     </div>
@@ -29,81 +28,65 @@ const { project } = Astro.props;
 
 <style>
   .project-detail {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 3rem 1.5rem 6rem;
+    padding-block: 3rem 4rem;
   }
 
   .back-link {
     display: inline-block;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
-    margin-bottom: 2rem;
-    transition: color 0.2s;
+    text-decoration: none;
+    margin-bottom: 3rem;
   }
 
   .back-link:hover {
-    color: var(--accent);
+    color: var(--text);
   }
 
   .project-detail__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2.5rem;
   }
 
   .project-detail__title {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 1.6rem;
+    font-weight: 600;
     letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 0.4rem;
   }
 
-  .project-detail__year {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-    white-space: nowrap;
-  }
-
-  .project-detail__tags {
+  .project-detail__meta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 2.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
   }
 
   .project-detail__content {
     color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.8;
+    line-height: 1.75;
   }
 
   .project-detail__content :global(p) {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.1rem;
   }
 
   .project-detail__content :global(h2) {
-    font-size: 1.3rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    color: var(--text-primary);
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
+    color: var(--text);
+    margin-top: 2.5rem;
+    margin-bottom: 0.6rem;
   }
 
   @media (max-width: 640px) {
     .project-detail {
-      padding: 2rem 1.25rem 4rem;
+      padding-block: 2rem 3rem;
     }
 
     .project-detail__title {
-      font-size: 1.5rem;
-    }
-
-    .project-detail__header {
-      flex-direction: column;
-      gap: 0.25rem;
+      font-size: 1.4rem;
     }
   }
 </style>

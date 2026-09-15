@@ -1,78 +1,32 @@
 ---
+const degrees = [
+  {
+    title: 'MSc in Computer Science',
+    date: '2023 – present',
+    school: 'École Polytechnique Fédérale de Lausanne (EPFL)',
+    courses: 'Advanced Computer Graphics, Computer Vision, Geometric Computing, Machine Learning',
+  },
+  {
+    title: 'BSc in Computer Science',
+    date: '2020 – 2023',
+    school: 'École Polytechnique Fédérale de Lausanne (EPFL)',
+    courses: 'Introduction to Computer Graphics, Parallelism and Concurrency, Algorithms and Data Structures',
+  },
+];
 ---
 
-<section id="education" class="fade-in">
+<section id="education">
   <h2 class="section-title">Education</h2>
-  <div class="education__list">
-    <div class="education__item">
-      <div class="education__header">
-        <h3>MSc in Computer Science</h3>
-        <span class="education__date">2023 – present</span>
-      </div>
-      <p class="education__school">École Polytechnique Fédérale de Lausanne (EPFL)</p>
-      <p class="education__courses">
-        <span class="education__label">Relevant courses:</span>
-        Advanced Computer Graphics, Computer Vision, Geometric Computing, Machine Learning
-      </p>
-    </div>
-    <div class="education__item">
-      <div class="education__header">
-        <h3>BSc in Computer Science</h3>
-        <span class="education__date">2020 – 2023</span>
-      </div>
-      <p class="education__school">École Polytechnique Fédérale de Lausanne (EPFL)</p>
-      <p class="education__courses">
-        <span class="education__label">Relevant courses:</span>
-        Introduction to Computer Graphics, Parallelism and Concurrency, Algorithms and Data Structures
-      </p>
-    </div>
-  </div>
+  <ul class="list">
+    {degrees.map((d) => (
+      <li>
+        <div class="row__head">
+          <h3 class="row__title">{d.title}</h3>
+          <span class="row__date">{d.date}</span>
+        </div>
+        <p class="row__sub">{d.school}</p>
+        <p class="row__body">Relevant courses: {d.courses}</p>
+      </li>
+    ))}
+  </ul>
 </section>
-
-<style>
-  .education__list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .education__item {
-    padding-left: 1.5rem;
-    border-left: 2px solid var(--border);
-  }
-
-  .education__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .education__header h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
-  .education__date {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-  }
-
-  .education__school {
-    color: var(--accent);
-    font-size: 0.95rem;
-    margin: 0.25rem 0 0.75rem;
-  }
-
-  .education__courses {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-  }
-
-  .education__label {
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-</style>
