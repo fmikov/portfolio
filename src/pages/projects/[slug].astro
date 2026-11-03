@@ -21,6 +21,26 @@ const { project } = Astro.props;
 const base = '/portfolio/projects/pbr-renderer';
 
 const placeholderContent: Record<string, string> = {
+  'masters-thesis': `
+    <p>Master's thesis carried out on exchange at the <strong>Visual Computing Lab, NTNU</strong> (Trondheim, Norway), as part of my MSc in Computer Science at EPFL.</p>
+    <p class="thesis-title"><em>Hardware-Aware AI Surrogate Modeling: Unlocking Asynchronous Compute and FP8 Inference for Real-Time CFD</em></p>
+
+    <h2>Overview</h2>
+    <p>Conventional computational fluid dynamics (CFD) produces accurate results but is far too slow for interactive use. This thesis builds a neural surrogate that predicts chaotic flow, such as the turbulent wakes behind surgical equipment, in real time. It then co-designs the model and inference pipeline with the GPU it runs on, so that low-precision arithmetic and asynchronous execution reduce latency while the physics stays accurate.</p>
+
+    <h2>Methodology</h2>
+    <h3>1. Surrogate modeling</h3>
+    <p>A <strong>Fourier Neural Operator (FNO)</strong> is trained to act as a "smart inbetweener". It interpolates physics fields across simulation parameters in a latent space, so new flow states can be predicted instantly instead of being solved from scratch.</p>
+    <h3>2. Hardware-aware optimization</h3>
+    <p><strong>Quantization-aware training (QAT)</strong> adapts the model to 8-bit floating-point (<strong>FP8</strong>) precision. The inference pipeline is structured around <strong>asynchronous compute</strong> on an NVIDIA RTX 4090, so independent work overlaps on the GPU.</p>
+    <h3>3. Evaluation</h3>
+    <p>Surrogate predictions are compared against ground-truth CFD data from <strong>Ansys</strong> to measure the trade-off between quantization error, physical fidelity and inference latency.</p>
+
+    <h2>Keywords</h2>
+    <p>AI Surrogate Modeling · Fourier Neural Operators (FNO) · Computer Architecture · FP8 Quantization · Asynchronous Compute · Computational Fluid Dynamics (CFD)</p>
+
+    <p><em>Work in progress. Results will be added as the thesis develops.</em></p>
+  `,
   'pbr-renderer': `
     <img class="hero-img" src="${base}/imgs/final_result.png" alt="Final render" />
 
@@ -148,6 +168,19 @@ const placeholderContent: Record<string, string> = {
 </ProjectLayout>
 
 <style is:global>
+  .project-detail__content h3 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .thesis-title {
+    color: var(--text);
+    font-size: 1.05rem;
+  }
+
   .hero-img {
     width: 100%;
     display: block;

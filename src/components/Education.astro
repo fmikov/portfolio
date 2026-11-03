@@ -1,6 +1,15 @@
 ---
 const degrees = [
   {
+    title: 'MSc Thesis (Exchange)',
+    date: '2026 – present',
+    school: 'Norwegian University of Science and Technology (NTNU), Visual Computing Lab — Trondheim, Norway',
+    thesis: {
+      title: 'Hardware-Aware AI Surrogate Modeling: Unlocking Asynchronous Compute and FP8 Inference for Real-Time CFD',
+      href: '/portfolio/projects/masters-thesis',
+    },
+  },
+  {
     title: 'MSc in Computer Science',
     date: '2023 – present',
     school: 'École Polytechnique Fédérale de Lausanne (EPFL)',
@@ -25,8 +34,24 @@ const degrees = [
           <span class="row__date">{d.date}</span>
         </div>
         <p class="row__sub">{d.school}</p>
-        <p class="row__body">Relevant courses: {d.courses}</p>
+        {d.thesis && (
+          <p class="row__body">
+            Thesis: <a href={d.thesis.href}><em>{d.thesis.title}</em></a>
+          </p>
+        )}
+        {d.courses && <p class="row__body">Relevant courses: {d.courses}</p>}
       </li>
     ))}
   </ul>
 </section>
+
+<style>
+  .row__body a {
+    color: inherit;
+    text-decoration-color: var(--text-muted);
+  }
+
+  .row__body a:hover {
+    text-decoration-color: currentColor;
+  }
+</style>

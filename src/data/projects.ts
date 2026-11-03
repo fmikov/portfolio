@@ -9,6 +9,13 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "Master's Thesis: Hardware-Aware AI Surrogate Modeling for Real-Time CFD",
+    year: '2026–present',
+    description: 'Training a Fourier Neural Operator as a "smart inbetweener" that predicts turbulent flow in real time, then adapting it for FP8 inference and asynchronous compute on an RTX 4090. Done at NTNU\'s Visual Computing Lab.',
+    tags: ['PyTorch', 'Neural Operators', 'FP8 Quantization', 'CFD', 'GPU'],
+    slug: 'masters-thesis',
+  },
+  {
     title: 'Physically Based Renderer',
     year: '2024',
     description: 'Realistic ray tracer with global illumination using Monte-Carlo methods in C++. Features octree acceleration for fast triangle intersections and homogeneous volumetric rendering.',
