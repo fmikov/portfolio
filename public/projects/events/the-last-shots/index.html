@@ -1,0 +1,399 @@
+<title>The Last Shots Production Diary</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one reading column (the diary), figures allowed to run wider; each day opens with a clapper-slate strip. */
+:root {
+  --bg: #eef0f2;
+  --surface: #ffffff;
+  --ink: #1b2026;
+  --muted: #5a646f;
+  --rule: #cfd5db;
+  --slate: #1f252c;
+  --slate-ink: #f2f0ea;
+  --gold: #a8690a;
+  --gold-soft: #f3e4c6;
+  --display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14181d; --surface: #1c2229; --ink: #e7e9ec; --muted: #9aa5b1; --rule: #323b46;
+    --slate: #0c0f13; --slate-ink: #f2f0ea; --gold: #e3a83c; --gold-soft: #3a2f18; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14181d; --surface: #1c2229; --ink: #e7e9ec; --muted: #9aa5b1; --rule: #323b46;
+  --slate: #0c0f13; --slate-ink: #f2f0ea; --gold: #e3a83c; --gold-soft: #3a2f18; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+.page { max-width: 1120px; margin: 0 auto; padding-block: 40px 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 44px; }
+.col { max-width: 720px; margin-inline: auto; width: 100%; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.05; }
+h1 { font-size: clamp(44px, 8vw, 84px); font-weight: 700; letter-spacing: 0.01em; text-transform: uppercase; }
+h2 { font-size: clamp(28px, 4.5vw, 40px); font-weight: 600; }
+h3 { font-size: 23px; font-weight: 600; letter-spacing: 0.02em; }
+p { margin: 0; }
+a { color: var(--gold); }
+.eyebrow { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 20px; line-height: 1.5; }
+header.top { display: flex; flex-direction: column; gap: 14px; }
+/* The slate: what a clapperboard carries, used once per day of the jam. */
+.slate { background: var(--slate); color: var(--slate-ink); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 10px solid var(--slate); background-image: repeating-linear-gradient(115deg, var(--slate-ink) 0 26px, var(--slate) 26px 52px); background-size: 100% 10px; background-repeat: no-repeat; }
+.slate div { padding: 16px 14px 12px; border-right: 1px solid #3a424c; min-width: 0; }
+.slate div:last-child { border-right: 0; }
+.slate dt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #9aa5b1; }
+.slate dd { margin: 2px 0 0; font-family: var(--display); font-size: 24px; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; overflow-wrap: anywhere; }
+dl.slate { margin: 0; }
+figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+figure img { width: 100%; height: auto; display: block; background: var(--slate); }
+figcaption { font-size: 14px; color: var(--muted); max-width: 720px; margin-inline: auto; width: 100%; }
+figcaption b { color: var(--ink); font-weight: 600; }
+ul, ol { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+.loop { counter-reset: step; list-style: none; padding: 0; gap: 0; border-top: 1px solid var(--rule); }
+.loop li { counter-increment: step; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 4px 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.loop li::before { content: counter(step, decimal-leading-zero); font-family: var(--mono); color: var(--gold); font-size: 14px; padding-top: 3px; }
+.loop b { font-weight: 600; }
+.call { background: var(--gold-soft); border-left: 4px solid var(--gold); padding: 14px 16px; font-size: 16px; }
+.call b { font-weight: 600; }
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; min-width: 560px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+td:first-child { width: 44%; }
+code { font-family: var(--mono); font-size: 0.88em; background: var(--surface); padding: 1px 5px; border: 1px solid var(--rule); }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.facts div { padding: 12px 14px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--surface); }
+.facts b { display: block; font-family: var(--display); font-size: 30px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.facts span { font-size: 13.5px; color: var(--muted); }
+footer { font-size: 14px; color: var(--muted); }
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .slate { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .slate div:nth-child(2) { border-right: 0; }
+  .slate div:nth-child(-n+2) { border-bottom: 1px solid #3a424c; }
+}
+</style>
+
+<div class="page">
+  <header class="top col">
+    <p class="eyebrow">2026 Epic AI MegaJam · theme: Director's Cut · Unreal Engine 5.8</p>
+    <h1>The Last Shots</h1>
+    <p class="lede">A production diary. Four days, six thrown-away ideas (the last of them eight hours before the deadline), one valley, and a build loop in which an AI agent wrote the code and judged its own stills before we ever pressed Play.</p>
+  </header>
+
+  <figure>
+    <img src="img/title.jpg" alt="The game's title screen: the green waterhole at first light, trees and flowers round the rain pool and a heron standing in it, under the words Photography lessons with Tomas Hale, The Last Shots" width="1400" height="788">
+    <figcaption><b>The game.</b> One valley, one day, four kinds of light. Tomas Hale's last film is made of still photographs, and you take them.</figcaption>
+  </figure>
+
+  <section class="col">
+    <h2>What you do in it</h2>
+    <p>It is a nature photography game. Tomas Hale, a director of photography with forty films behind him, is making his last one out of still photographs: one day in the valley he grew up in. He can no longer hold the camera, so he teaches you. The day has four lights (high noon, the golden hour, moonrise, first light after rain), and each is a lesson with a brief.</p>
+    <p>A brief is a list of photographs, each with conditions: a crow in the air, the barn owl when the moon is out, a springbok when the wind drops, the meerkat on a long lens, the bat-eared fox at night, the heron in flight (walk too close and it goes up). Fill the frame with the animal while the conditions hold, and click. Everything else in the valley is yours to photograph, on any of six film stocks. When the brief is done the day moves on, and the game ends on a slideshow of your roll.</p>
+    <p>That is not the game we set out to make. For three and a half days it was a film about a sword, joined by match cuts. The diary below keeps that history, because the turn at the end is the most useful part of it.</p>
+    <div class="facts">
+      <div><b>4</b><span>lights in one day, each a lesson with a brief</span></div>
+      <div><b>4</b><span>days, start to packaged build</span></div>
+      <div><b>57</b><span>labelled rounds of look-dev stills</span></div>
+      <div><b>~1,500</b><span>scanned plants that grow back between shots</span></div>
+      <div><b>48</b><span>voice, sound and music files</span></div>
+    </div>
+  </section>
+
+  <figure>
+    <img src="img/brief.jpg" alt="Two gameplay screens: the brief at noon with the vulture framed in the dashed box, and the heron in the air at first light with two of four photographs ticked" width="1800" height="504">
+    <figcaption><b>A brief, being filled.</b> Left, lesson one: the vulture is in the box, three photographs to go. Right, first light: walk too close and the heron goes up, which is the photograph he asked for.</figcaption>
+  </figure>
+
+  <section class="col">
+    <h2>How we worked</h2>
+    <p>We directed; an AI coding agent (Claude Code) did almost all of the building. That only works if the agent can check its own work, so most of the first two days went into giving it eyes.</p>
+    <ol class="loop">
+      <li><span><b>The world is code.</b> There is no hand-built level. The game boots into an empty engine map and one C++ director class spawns every rock, prop, light and sound. An agent can change a set by editing a number, and nothing depends on clicking in the editor.</span></li>
+      <li><span><b>Assets come from scripts.</b> Props are built by headless Blender scripts and imported by headless Unreal Python scripts. Rebuilding the forge is two commands, and every script is kept in the project.</span></li>
+      <li><span><b>An autopilot plays the game.</b> Launched with <code>-ProtoDemo</code>, the game plays itself from title to credits using the same inputs a player has, saves a still at each step and logs the result. If a change breaks the film, the run says so.</span></li>
+      <li><span><b>A look-dev mode shoots stills.</b> <code>-LookDev</code> stages every shot from fixed angles with the HUD off. Each round of stills is filed under a label, so any two builds can be compared side by side.</span></li>
+      <li><span><b>Critics read the stills.</b> For the visual pass, two reviewer agents (one briefed as a director of photography, one as an art director) looked at each round and listed what was wrong. The builder fixed the list and shot again.</span></li>
+      <li><span><b>People decide.</b> Every change of direction below was ours, usually after playing a build and saying what felt wrong.</span></li>
+    </ol>
+  </section>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 1</dd></div><div><dt>Date</dt><dd>Thu 12 Nov</dd></div><div><dt>Scene</dt><dd>Finding it</dd></div><div><dt>Takes</dt><dd>5 ideas</dd></div></dl>
+    <h3>Four ideas in a day, none of them the game</h3>
+    <p>The first idea was <b>Shadow Play</b>: move a lamp so the shadows of paper cards become platforms. It worked, and we rejected it the same day. It was a platformer with a gimmick, and shadow platforming has been done.</p>
+    <p><b>Shadow Show</b> was better: a script calls for "a bird", and you hold paper hands and household objects up to a lamp until their combined shadow is close enough, at which point it comes alive. We polished one act of it in a paper toy theatre style. A third prototype, <b>Out of Shot</b>, had you sneaking across a set without being caught by the cameras. A fourth idea, cutting pieces out of a paper stage, never left the notebook.</p>
+  </section>
+
+  <figure>
+    <img src="img/prototypes.jpg" alt="Three early prototypes: a lamp casting platform shadows, paper hands making a bird shadow, and a top-down set with camera tiles" width="1800" height="335">
+    <figcaption><b>Thrown away on day one.</b> Shadow Play, Shadow Show and Out of Shot. All three still exist in an archive folder, 2.9 GB of it.</figcaption>
+  </figure>
+
+  <section class="col">
+    <p>The idea that stuck came from asking what "Director's Cut" literally is: a cut. In a <b>match cut</b>, a shape in one shot becomes the same shape in the next. So: a first-person film camera, a ring in the viewfinder, and a cut that carries you to another place where the same shape sits in the same spot on screen.</p>
+    <p>The first demo cut from the sun over a canyon to a round hole in a cave wall. The first piece of feedback was that staring at the sun to frame it was unpleasant, so the sun became a round window in a sandstone fin. The cut worked, and it was the first prototype we wanted to keep playing.</p>
+  </section>
+
+  <figure>
+    <img src="img/matchcut_first.jpg" alt="An early match cut: a round canteen framed in a viewfinder ring, then the same circle as a bright hole in a dark cave" width="1500" height="420">
+    <figcaption><b>An early match cut,</b> from the water film a day later. A canteen held to the eye becomes the hole in a cave wall.</figcaption>
+  </figure>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 2</dd></div><div><dt>Date</dt><dd>Fri 13 Nov</dd></div><div><dt>Scene</dt><dd>The sword</dd></div><div><dt>Takes</dt><dd>2 films</dd></div></dl>
+    <h3>We wrote a film with an actress, then fired her</h3>
+    <p>The match cut needed a reason, so the player became a camera operator on a film set. We wrote "The Last Drop", five shots about a woman looking for water, with an animated mannequin as the actress. It ran end to end the same day, and it looked like a jam game with a mannequin in it. Humans are hard to animate convincingly in four days.</p>
+    <div class="call"><b>The call that made the game:</b> find a story with no people in it. One object, followed through its whole life, so every cut is from the thing to the same thing later.</div>
+    <p>That became a sword: cooling in a block at a forge, hung on a chain to drip, thrown across a canyon, planted on a battlefield at dusk, rusting under the moon years on, and found one morning with a vine grown round it. The water film stayed in the project as a fallback for a day and was then archived.</p>
+    <p>The rest of the day was making the cut a game. Playtests drove nearly all of it:</p>
+    <ul>
+      <li>Matching was too strict, so framing got an assist and a snap.</li>
+      <li>The hint said "something round" and the tester framed the sun. Hints now name the target.</li>
+      <li>"If it is always the sword, the player will never look around the set." So each shot opens with a shot list of two props to find first.</li>
+      <li>Intruders (moths at the forge, crows on the field, bats at night, the boom mic) give you something to do while you wait for the moment. (Cut on the last afternoon: see Day 4.)</li>
+      <li>The premiere: the game records your camera and replays the film you actually shot. (Also replaced on the last afternoon.)</li>
+    </ul>
+  </section>
+
+  <figure>
+    <img src="img/gameplay.jpg" alt="Two gameplay screens: the sword framed in the viewfinder outline at the forge, and a close-up box around a war drum on the battlefield" width="1642" height="460">
+    <figcaption><b>The two halves of a shot.</b> Left, the sword matched in its outline with the cut ready. Right, a close-up from the shot list: the war drum on the battlefield.</figcaption>
+  </figure>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 3</dd></div><div><dt>Date</dt><dd>Sat 14 Nov</dd></div><div><dt>Scene</dt><dd>Look, story, sound</dd></div><div><dt>Takes</dt><dd>26 rounds</dd></div></dl>
+    <h3>Shot on 35 mm, one colour per shot</h3>
+    <p>We picked a look and wrote it down so the agent could hold to it: cinematic realism, the sword the brightest thing in every frame, and one colour per shot telling the sword's life from hot to cold to alive. Molten orange, smoky amber, bleached noon, blood red, blue silver, green gold.</p>
+    <p>Then the loop ran. Shoot 18 stills, have the two critics read them, fix, shoot again. Twenty-six labelled rounds between mid-afternoon and evening. The critics caught things we would have shipped: a point light burning out the wall behind the fire, backlit plants reading as dark shapes, plain blocks still standing in for props.</p>
+  </section>
+
+  <figure>
+    <img src="img/forge_three.jpg" alt="The forge shot at three stages: bare blocks, a lit forge with a brick hearth, and the final forge with scanned props and a timber trestle" width="1800" height="250">
+    <figcaption><b>The forge, same camera, three stages.</b> Saturday afternoon before the look pass, Saturday evening after it, Sunday after the realism pass.</figcaption>
+  </figure>
+  <figure>
+    <img src="img/dawn_three.jpg" alt="The dawn shot at three stages: empty sand, a planted valley, and a backlit morning with flowers and a rain pool" width="1800" height="250">
+    <figcaption><b>The last shot.</b> The canyon floor became a Namaqualand valley of scanned plants (Poly Haven, CC0) that regrow across the three time jumps. Later the sun moved behind the sword and a rain pool appeared.</figcaption>
+  </figure>
+
+  <section class="col">
+    <p>The film stock is a chain of small things: a print-film colour table, grain, a gate that weaves by about a pixel, halation round the highlights, oval bokeh. We built six stocks and compared them on the same frames before choosing "Print".</p>
+    <p>The story arrived the same day. The director got a name and a voice: Tomas Hale, forty films in, shooting the one he never dared. He says one line per shot, reacts to your cuts, and at the premiere tells you what the audience made of it. All voice, sound effects and music were generated with ElevenLabs and imported by script, 48 files in all.</p>
+  </section>
+
+  <figure>
+    <img src="img/styles.jpg" alt="A grid comparing six film looks across the six shots" width="1400" height="701">
+    <figcaption><b>Choosing a film stock.</b> Six looks, six shots, one contact sheet. A lesson from this: a "print" tone curve must leave the midtones alone. Our first one lifted them by a stop and everything clipped.</figcaption>
+  </figure>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 4</dd></div><div><dt>Date</dt><dd>Sun 15 Nov</dd></div><div><dt>Scene</dt><dd>Playtest and realism</dd></div><div><dt>Takes</dt><dd>6 rounds</dd></div></dl>
+    <h3>What players did not understand, and what did not look real</h3>
+    <p>A playtest produced a list. Testers did not know what an "insert" was, so the game says "close-up". They could not tell which of nine shields was wanted, so each shot list now names things there is only one of. Mouse speed is personal, so the pause screen has a slider. A slow dissolve we were proud of was judged too slow and switched off.</p>
+    <p>We also added one bird hidden in every shot that Hale never asked for. Frame it and it goes into the premiere.</p>
+    <p>The afternoon was a realism pass, run the same way as the look pass. The agent audited stills of every shot and listed the weakest things: a vulture that read as a toy eagle, perches made of boxes and cylinders, a flat brick hearth, a drum built from six cylinders.</p>
+    <ul>
+      <li>Props and surfaces from Poly Haven scans replaced hand-made ones: stumps, a quench tub, a cask, a tool chest, a dead quiver-tree trunk, rock, timber and rusted iron.</li>
+      <li>A small Blender routine gives every hand-built prop real-scale UVs, with the wood grain following each beam, so scanned textures sit correctly on them.</li>
+      <li>Animals and hero props were regenerated with Hyper3D Rodin from more exact prompts (species, posture, plumage), then cut and prepared by script. The bat and the hawk moth are split into a body and two wings so they can flap.</li>
+      <li>Standing birds now breathe and shift their weight.</li>
+    </ul>
+  </section>
+
+  <figure>
+    <img src="img/vulture.jpg" alt="The hidden vulture before and after: a stiff eagle-like bird, then a hunched Cape vulture with a bare neck" width="1800" height="376">
+    <figcaption><b>Same prompt idea, better brief.</b> The first vulture was asked for in a few words. The second prompt named the species, the hunched posture, the bare neck and the ruff.</figcaption>
+  </figure>
+  <figure>
+    <img src="img/rodin.jpg" alt="Seven generated models: vulture, barn owl, bat, hawk moth, war drum, gilded helmet and round shield" width="1800" height="253">
+    <figcaption><b>Sunday's generated cast.</b> Cape vulture, barn owl, bat, hawk moth, war drum, gilded nasal helmet, round shield (Hyper3D Rodin Gen-2.5).</figcaption>
+  </figure>
+  <figure>
+    <img src="img/drum.jpg" alt="The war drum before and after: a plain grey cylinder, then a rope-laced red drum with a rawhide head" width="970" height="420">
+    <figcaption><b>A bug found by a still.</b> The new drum first rendered flat brown. The cause was old: battlefield props are given a weathered material in the later shots and never got their own back, so the premiere had been replaying the battle with brown props. One screenshot, one real fix.</figcaption>
+  </figure>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 4</dd></div><div><dt>Date</dt><dd>Sun 15 Nov</dd></div><div><dt>Scene</dt><dd>The last playtest</dd></div><div><dt>Takes</dt><dd>1 afternoon</dd></div></dl>
+    <h3>The ending did not work, so the game became about photographs</h3>
+    <p>One more playtest, hours before the deadline, found three bugs and one design problem. The bugs were ordinary: a tool chest hung 36 cm above the cave floor (its height was measured at one spot and it was placed at another), two ravens stood inside each other on the sword's hilt (every crow was sent to the same point), and they held their wings half open (the rig's stock idle clip does that).</p>
+    <p>The design problem was the premiere. Replaying clips of your own camera moves produced "a bunch of random shots". The idea that replaced it came out of that conversation, not out of a plan:</p>
+    <div class="call"><b>The call:</b> stop pretending the player is shooting a film. Let them photograph what they like, give each scene a brief with conditions to meet, keep the match cut as the photograph that moves you on, and end on a slideshow of the roll.</div>
+    <ul>
+      <li><b>Every click is a photograph.</b> The brief's close-ups, the sword at its moment, the one thing Hale never asked for, and anything of your own all go on one roll. The sword photograph is still the match cut.</li>
+      <li><b>Six film stocks on keys 1 to 6.</b> The stocks already existed from the day we chose a look; now the player chooses, and each photograph remembers its stock.</li>
+      <li><b>The slideshow is staged, not saved.</b> A photograph stores the camera, the set's clock and the stock, never pixels. The ending puts each one back on the live set with a slow push-in.</li>
+      <li><b>The animals stopped being obstacles.</b> Shooing things off the sword with F was cut, with the boom mic. Moths now circle the fire, crows move between perches on the battlefield, bats hunt at night. Everything they do is computed from the film's clock, which is what lets a photograph of a crow be staged again with the crow where it was.</li>
+      <li><b>A heron that leaves.</b> The standing heron was regenerated with its wings spread, rigged, and given a take-off. Come within about four metres and it goes up, circles, and lands again when you have backed away.</li>
+    </ul>
+    <p>What made this possible in an afternoon was that the pieces were already data. The premiere recorded frames as camera plus set state, so a photograph was one frame of something we had. The stocks were a table. The autopilot only needed to learn to take a picture of its own in each scene and to walk over to the pool.</p>
+  </section>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 4</dd></div><div><dt>Date</dt><dd>Sun 15 Nov</dd></div><div><dt>Scene</dt><dd>The sword goes</dd></div><div><dt>Takes</dt><dd>2 hours</dd></div></dl>
+    <h3>Then the sword went too</h3>
+    <p>With photographs and living animals in, the sword was the least interesting thing on screen. The last call of the jam, with eight hours left: make it a real nature photography game. Change the scenes, drop the sword, let the valley be the subject.</p>
+    <p>It took about two hours to stand up, and only because of how the project was built:</p>
+    <ul>
+      <li><b>The valley already had four lights.</b> The sword's last four shots were the same canyon at noon, dusk, night and dawn, with scanned plants that grow back between them. Take away the battle and they are a day in a valley.</li>
+      <li><b>Animals are one prompt, one rig, one script.</b> A springbok, a black-backed jackal and a meerkat were generated with Hyper3D Rodin, rigged and animated with its quadruped skeleton, reduced in Blender and imported, all headless, while the game code was being rewritten.</li>
+      <li><b>A brief is data.</b> Each photograph Hale asks for is a subject plus conditions (in the air, on the ground, moon out, wind down, long lens, two in frame). The same list drives the checklist on screen, the hints, the scoring and the autopilot that tests the game.</li>
+      <li><b>The old game still runs.</b> One switch on the command line plays the sword's film, so nothing was thrown away to try this.</li>
+    </ul>
+    <p>Then the springbok cost an hour. In the engine its coat came out blotched like camouflage. We blamed the texture, and were wrong four times: the reduced mesh, the texture's mipmaps, the normal map and the shadows each got a fix that changed nothing. What ended it was two test materials. With lighting switched off the coat was perfect, so the texture was innocent. With the surface normal shown as a colour the animal was covered in black patches: Unreal had recomputed the mesh's normals on import and got whole patches wrong. Importing the normals from the file fixed the springbok, and the heron, which had the same fault more quietly.</p>
+  </section>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 4</dd></div><div><dt>Date</dt><dd>Sun 15 Nov</dd></div><div><dt>Scene</dt><dd>The second cast</dd></div><div><dt>Takes</dt><dd>1 hour</dd></div></dl>
+    <h3>A second cast, made from pictures</h3>
+    <p>The first springbok was generated from a sentence, and it showed: the horns were wrong and the flank band wandered. While one agent session fixed the build, a second one redid the cast properly, in parallel:</p>
+    <ul>
+      <li><b>A reference image per species.</b> A side view of each animal was generated first, and the model was made from that picture (Hyper3D Rodin, image to 3D) instead of from words. The springbok got its lyre horns and its white face.</li>
+      <li><b>Three new species.</b> A gemsbok for noon and the golden hour, a bat-eared fox for the night, a blue-headed rock agama sunning itself at noon. The meerkat was remade with its legs apart, so it can walk and rear up.</li>
+      <li><b>Every clip checked before it was used.</b> Each animation was rendered frame by frame and measured for stretched skin. The gemsbok's walk drags a hind hoof out of shape, so the gemsbok grazes where it stands. The lizard was modelled for a rock, tail hanging; on sand it is tipped nine degrees so the tail meets the ground.</li>
+      <li><b>Something for them to stand under.</b> The same method made the valley's own landmarks: a dead camelthorn tree up the valley for the golden hour's silhouette, a termite mound on the meerkats' side, a gemsbok skull, aloes and halfmens along the edges. Seven placements, one table in code.</li>
+      <li><b>Two sessions, one rule.</b> The second session only wrote source files and told the first what was ready; the first imported, wired and packaged. Neither touched the other's folders.</li>
+    </ul>
+    <p>Adding an animal to the game is one line in a table (model, clips, height, which lights it is out in, how fast it walks) and one line in a brief.</p>
+  </section>
+
+  <figure>
+    <img src="img/cast2.jpg" alt="Four stills: a gemsbok at noon, a bat-eared fox in moonlight, two meerkats with one rearing up, and a springbok drinking at the rain pool at first light" width="1800" height="506">
+    <figcaption><b>The second cast.</b> Gemsbok, bat-eared fox, meerkats, and the new springbok at the pool.</figcaption>
+  </figure>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 4</dd></div><div><dt>Date</dt><dd>Sun 15 Nov</dd></div><div><dt>Scene</dt><dd>The third cast</dd></div><div><dt>Takes</dt><dd>35 minutes</dd></div></dl>
+    <h3>Four more, with five hours to go</h3>
+    <p>The second session kept going while the build was being tested: an ostrich, a pale chanting goshawk, a malachite sunbird and a Cape hare, made the same way. Putting them in took 35 minutes, and most of that was deciding where each one belongs.</p>
+    <ul>
+      <li><b>The goshawk perches on the dead camelthorn.</b> The tree has no collision to trace against, so its top twig was measured on the model itself: a script read the imported mesh's vertices and reported the highest point. The bird sits five centimetres under the tip.</li>
+      <li><b>The sunbird hovers at an aloe.</b> The same measurement found the tallest flower spike. The bird hangs 13 cm off it, facing it, drifting in to feed and back, with its hover clip played five times too fast so the wings blur.</li>
+      <li><b>The ostriches needed room.</b> The first try put a pair in the middle of the valley, where they walked through the gemsbok and the camelthorn's low branches. A camera pointed straight down showed open flats beyond the tree, so they walk there, against the low sun.</li>
+      <li><b>The hare has no walk.</b> Its hopping clip moves the whole animal forward and snaps it back, so it sits, sniffs, and bolts to its next spot on its running clip.</li>
+    </ul>
+    <p>Four lines in the animals' table, four lines in the briefs: 22 photographs asked for now, across the four lights.</p>
+  </section>
+
+  <figure>
+    <img src="img/cast3.jpg" alt="Four stills: a green malachite sunbird hovering at a red aloe flower, a pale chanting goshawk perched on a twig against the sky, two ostriches in silhouette on sand at sunset, and a Cape hare sitting up in moonlight" width="1800" height="754">
+    <figcaption><b>The third cast.</b> Sunbird at the aloe, goshawk on the camelthorn, ostriches on the far flats, the hare by moonlight.</figcaption>
+  </figure>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 4</dd></div><div><dt>Date</dt><dd>Sun 15 Nov</dd></div><div><dt>Scene</dt><dd>Four scenes</dd></div><div><dt>Takes</dt><dd>5 rounds</dd></div></dl>
+    <h3>"You ignored my suggestion of re-doing the scenes"</h3>
+    <p>At twenty past ten, four and a half hours before the deadline, that message arrived, and it was fair. The game had become a nature photography game, but it was still played in the sword film's desert canyon: the same sand under four different lights. New animals had been easier to add than a new place, so that is what had been added.</p>
+    <p>The fix kept the one thing that could not move, the footprint the animals walk on, and replaced everything standing on it:</p>
+    <ul>
+      <li><b>Noon, the dry pan.</b> Stones in three sizes, succulents, a little straw-coloured grass, quiver trees. Hard light, hard ground.</li>
+      <li><b>The golden hour, the grassland.</b> Dry grass over the whole floor, karee trees down both sides, the sun behind all of it.</li>
+      <li><b>Moonrise, the wooded kloof.</b> Trees close along the walls, ferns, leaf litter, mossy rocks, a fallen trunk.</li>
+      <li><b>First light, the green waterhole.</b> Green grass, tall grass and ferns round the rain pool, five kinds of flower.</li>
+    </ul>
+    <p>Almost everything is Poly Haven (CC0): fifteen more models and seven ground scans, fetched and imported by two short scripts. Poly Haven has no reeds and no tall dry grass, so the second session built those two in Blender from painted cards while the first one planted the rest. In code a scene is a column in a table: each line of plants says which lights it stands in, and each light has its own ground material built from three scans.</p>
+    <p>Two things went wrong on the way. The first stills ran at 10 frames a second, which looked like the new grass until the old planting was run for comparison and was just as slow: another game had the graphics card. And the golden grass came out black, because a grass scan has no translucency and the sun was behind it. Lifting its colour did nothing (five times nothing is nothing); a little light of its own did, once the first attempt, which turned the valley into yellow paper, was cut to a quarter.</p>
+    <p>The last one was the kind that ships if nobody looks. One still came back full of dark shards: a tree's leaves drawn as solid triangles. The script that points the plants' materials at the project's own alpha-masked parents had been reporting "re-parented 53 instances" all day and saving none of them, because it only saved packages the editor considered changed, and run headless it did not consider them changed. On disk every plant in the game still used the engine's translucent material. A version that forces the save fixed the leaves, and the frame rate with them: thousands of clumps of translucent grass became thousands of clumps of masked grass.</p>
+    <p>And the game got a new name in the same hour. It is not about a sword's last cut any more. It is The Last Shots.</p>
+    <p>The last change before the freeze came from the other session, and it is the one that makes the briefs worth waiting for. The animals got routines, and five of the briefs now ask for a moment instead of a portrait: a springbok pronking, a meerkat on sentry duty, the gemsbok tossing its horns, the bat-eared fox digging, the hare sitting up. Each moment has a tell a second or two before it (the springbok goes head up and stock-still), so the picture can be learned, not just lucked into. Like everything else in the valley it runs off the film's clock, so the slideshow can stage the same leap again.</p>
+  </section>
+
+  <figure>
+    <img src="img/scenes.jpg" alt="Four stills: a dry stony pan at noon, backlit dry grassland with antelope at the golden hour, a wooded kloof with ferns by moonlight, and a green waterhole with springbok among flowers at first light" width="1800" height="754">
+    <figcaption><b>Four scenes on one footprint.</b> The dry pan, the grassland, the wooded kloof, the green waterhole.</figcaption>
+  </figure>
+
+  <section class="col">
+    <dl class="slate"><div><dt>Roll</dt><dd>Day 5</dd></div><div><dt>Date</dt><dd>Mon 16 Nov, 00:00</dd></div><div><dt>Scene</dt><dd>Cuts and water</dd></div><div><dt>Takes</dt><dd>8 rounds</dd></div></dl>
+    <h3>Fewer animals, and a river</h3>
+    <p>Twenty to midnight: "some of the animals have horrible animations ... just remove those animals." Five went: the springbok, the gemsbok, the ostrich, the jackal and the bat-eared fox. Their stock walking and trotting clips had passed every still and failed in motion, and a still is all an agent looks at unless it makes itself look at more. The valley kept the animals that move well because they barely move from their place: the meerkats, the hare, the agama, the birds. The briefs were rewritten round them and three of Hale's lines recorded again.</p>
+    <p>Then, with three hours left: rivers, lakes and waterfalls. There is no terrain to carve, only a level floor, so the water is a hand deep and has to look deeper than it is:</p>
+    <ul>
+      <li><b>A river</b> down the south side, a ribbon mesh along a smoothed path with the flow in its UVs, on Unreal's Single Layer Water shading; reeds, tall grass and stones on its banks. At noon the same course is a dry bed of stones.</li>
+      <li><b>A waterfall</b> off the canyon wall. The wall is found by tracing for it; the first version, two scrolling sheets, looked like a flat card with the cliff's shadow across it. What reads as falling water is sixty soft puffs of spray thrown from the lip and falling the full height.</li>
+      <li><b>Still water</b>: a long pool up the middle of the valley and a lake at first light. For three rounds neither showed at all, because the visible ground lies a few centimetres above what a trace hits and the water was under it. Then it showed as a black slab hanging in the air, because one of nine height samples had landed on a rock and the absorption had been turned up to compensate for water nobody could see.</li>
+    </ul>
+    <p>The last hour went on three more requests. The golden-hour pool had to show the sky: a mirror-type surface came out black, because nothing in this world's sky is there for a reflection ray to find, and then, carrying the sky's colour itself, as flat as coloured paper. What shipped is the first water shader with a little of each light's sky added by viewing angle. Every plant now sways a little. And the sky got Unreal's volumetric clouds, which took four lines of code and worked the first time, the only thing all night that did.</p>
+    <p>It is the roughest part of the game, finished an hour before the deadline, and the golden-hour pool is weaker than the others. The lake at first light, with the heron standing in it, is the picture the whole change was for.</p>
+  </section>
+
+  <figure>
+    <img src="img/water.jpg" alt="Four stills: a heron standing in a still lake at first light, a white waterfall coming down a canyon wall behind reeds and an aloe, a dark pool between reeds by moonlight, and a dry riverbed of stones at noon" width="1800" height="754">
+    <figcaption><b>Water.</b> The lake at first light, the fall, the pool by moonlight, and at noon the same river as a dry bed.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="img/valley.jpg" alt="Four stills of the same valley: the vulture at noon, gemsbok and springbok under the dead camelthorn in the golden hour, the barn owl at night, and a springbok drinking at the rain pool at first light" width="1800" height="506">
+    <figcaption><b>Before: one valley, four lights.</b> The same canyon at noon, the golden hour, moonrise and first light, as it was until ten that night.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="img/wildlife.jpg" alt="Three stills: the springbok's coat blotched in patches, the same animal with its surface normals shown as colours and covered in black patches, and the clean coat after the fix" width="1800" height="506">
+    <figcaption><b>The springbok's coat.</b> As it first rendered; with its normals shown as colours (the black patches are the fault); with the normals taken from the file.</figcaption>
+  </figure>
+  <figure>
+    <img src="img/roll.jpg" alt="Three frames of the closing slideshow, each captioned with what the photograph is, whose idea it was and its film stock" width="1800" height="338">
+    <figcaption><b>The roll.</b> The closing slideshow names each photograph, says whether it was Hale's brief or your own, and shows the stock it was shot on.</figcaption>
+  </figure>
+
+  <section class="col">
+    <h2>Things that bit us</h2>
+    <p>Most of the lost time was not design. It was the gap between what a tool says it did and what ended up on screen. These are the ones worth knowing if you build this way.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>What we saw</th><th>What it was</th></tr></thead>
+        <tbody>
+          <tr><td>Plants rendered as grey mirrors</td><td>The glTF import wired a greyscale roughness map into the metal channel. Setting the material's metallic factor to zero fixed it.</td></tr>
+          <tr><td>Leaves drawn as solid shards</td><td>The scans' leaf materials are alpha-blended, and Nanite cannot draw translucent materials. Switching the shared parent to alpha-masked gave the outlines back.</td></tr>
+          <tr><td>Foliage dark in the packaged game only</td><td>Material instances were parented to engine plugin content without the Nanite usage flag, so the build fell back to the default material. We copied the parents into the project.</td></tr>
+          <tr><td>A rigged crow that was invisible</td><td>Its bones were in metres under a mesh in centimetres, so the skinned bird was a hundredth of its size. Re-exporting through Blender fixed the scale.</td></tr>
+          <tr><td>Imported props that looked crude</td><td>The importer turned Nanite on and left a rough fallback mesh. Our import scripts now switch it off for small props.</td></tr>
+          <tr><td>HUD text that drew nothing</td><td>Canvas text with a Slate font needs a real font object behind it. The UI kit wraps one at start-up.</td></tr>
+          <tr><td>A highlight that hid the thing it marked</td><td>The glow on shot-list props had a flat fill that washed their colours out. It is now almost all rim.</td></tr>
+          <tr><td>Animals blotched like camouflage under a low sun</td><td>Not the texture. Unreal recomputed the meshes' normals on import and got patches of them wrong. Importing the file's own normals fixed it. An unlit test material would have told us in five minutes.</td></tr>
+          <tr><td>A meerkat that tore when it walked</td><td>The generated model has skin joining its forelegs, and the walk clip pulls it into a sheet. It now keeps to its post, as meerkat sentries do.</td></tr>
+          <tr><td>Builds refusing to start</td><td>Any other open Unreal window blocks the compiler with "Live Coding is active". One flag gets past it, when that window has a different project.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <figure>
+    <img src="img/premiere.jpg" alt="The premiere screening of the player's film and the end credits with star ratings per shot" width="1642" height="460">
+    <figcaption><b>The ending it replaced.</b> Until Sunday afternoon the game closed on a premiere that replayed your camera moves, with credits grading each shot.</figcaption>
+  </figure>
+
+  <section class="col">
+    <h2>What we would tell another team</h2>
+    <ul>
+      <li><b>Give the agent a way to see.</b> The autopilot and the still modes cost half a day and paid for themselves by the first evening. An agent that can run the game and look at the result fixes its own mistakes.</li>
+      <li><b>Keep everything rebuildable.</b> Because sets and assets are scripts, changing the whole direction of the game on day two cost hours, not the jam.</li>
+      <li><b>Throw ideas away early.</b> Five directions in two days sounds wasteful. Each one reached a playable state quickly, which is the point of building this way.</li>
+      <li><b>Let playtests write the task list.</b> Every feature players liked came from one of them saying a sentence that started with "I didn't know".</li>
+      <li><b>Split the picture before you fix it.</b> When something looks wrong, render it unlit, then render its normals. We spent an hour fixing a texture that was never broken.</li>
+      <li><b>Be exact with generators.</b> The difference between a toy bird and a believable one was a prompt that named the species and how it stands.</li>
+    </ul>
+  </section>
+
+  <section class="col">
+    <h2>Tools and assets</h2>
+    <ul>
+      <li><b>Engine:</b> Unreal Engine 5.8 (Lumen, Nanite), C++ only, about 11,000 lines.</li>
+      <li><b>AI agent:</b> Claude Code (Anthropic) for code, build scripts, asset pipelines and review.</li>
+      <li><b>3D generation:</b> Hyper3D Rodin Gen-2.5 for every animal. The crow, heron, springbok, gemsbok, jackal, bat-eared fox, meerkat, agama, ostrich, goshawk, sunbird and hare are also rigged and animated with Rodin's bird and quadruped skeletons.</li>
+      <li><b>Reference images:</b> ByteDance Seedream 5 Pro (through ElevenLabs) for the side-view species pictures the second and third casts were modelled from.</li>
+      <li><b>Audio:</b> ElevenLabs for the director's voice, sound effects, ambience and score.</li>
+      <li><b>Scans:</b> Poly Haven models and textures (CC0) and three Quixel Megascans cliffs from Fab.</li>
+      <li><b>Modelling:</b> Blender 5.1, run headless from Python.</li>
+    </ul>
+    <p>The full list of third-party assets is in the project's CREDITS file.</p>
+  </section>
+
+  <footer class="col">
+    <p>The Last Shots (The Last Cut until its last evening, when it stopped being about a sword and its cuts) was made for the 2026 Epic AI MegaJam, 12 to 15 November 2026.</p>
+  </footer>
+</div>
